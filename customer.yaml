@@ -1,0 +1,56 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Fake Bank - Customer API
+  license:
+    name: GNU General Public License Version 3
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+servers:
+  - url: http://bank.olof.info/v1/customers
+paths:
+  /customers:
+    get:
+      summary: List all customers
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customers"
+    post:
+      summary: Create a customer
+      responses:
+        201:
+          description: Null response
+  /customers/{email}:
+    get:
+      summary: Info for a specific customer
+      parameters:
+        - name: email
+          in: path
+          required: true
+          description: The email of the customer to retrieve
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+components:
+  schemas:
+    Customer:
+      required:
+        - email
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+    Customers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Customer"
