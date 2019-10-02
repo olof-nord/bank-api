@@ -11,6 +11,7 @@ paths:
   /customers:
     get:
       summary: List all customers
+      operationId: "getCustomers"
       responses:
         200:
           content:
@@ -19,6 +20,7 @@ paths:
                 $ref: "#/components/schemas/Customers"
     post:
       summary: Create a customer
+      operationId: "createCustomer"
       requestBody:
         content:
           "application/json":
@@ -33,6 +35,7 @@ paths:
   /customers/{email}:
     get:
       summary: Get info for a specific customer
+      operationId: "getCustomer"
       parameters:
         - name: email
           in: path
