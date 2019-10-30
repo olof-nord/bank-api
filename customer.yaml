@@ -81,12 +81,12 @@ components:
   parameters:
     Email:
       name: email
-        in: path
-        required: true
-        description: The email of the customer to retrieve
-        example: sven.svensson@gmail.com
-        schema:
-          type: string
+      in: path
+      required: true
+      description: The email of the customer to retrieve
+      example: sven.svensson@gmail.com
+      schema:
+        type: string
 
   # Reusable responses
   responses:
@@ -104,7 +104,7 @@ components:
             $ref: '#/components/schemas/Customer'
     Customers:
       description: A list of customers
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Customers
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customers'
