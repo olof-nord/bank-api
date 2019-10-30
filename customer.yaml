@@ -57,6 +57,8 @@ components:
   schemas:
     Customer:
       required:
+        - firstName
+        - lastName
         - email
       properties:
         firstName:
