@@ -27,10 +27,7 @@ paths:
       summary: Create a customer
       operationId: 'createCustomer'
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Customer'
+        $ref: '#/components/requestBodies/Customer'
       responses:
         201:
           $ref: '#/components/responses/Customer'
@@ -87,6 +84,15 @@ components:
       example: sven.svensson@gmail.com
       schema:
         type: string
+
+  # Reusable request bodies
+  requestBodies:
+    Customer:
+      description: Body to create a customer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
 
   # Reusable responses
   responses:
