@@ -33,12 +33,12 @@ paths:
         422:
           $ref: '#/components/responses/CreationFailed'
 
-  /customers/{email}:
+  /customers/{customer-id}:
     get:
-      summary: Gets a customer by email
+      summary: List a single customer
       operationId: 'getCustomer'
       parameters:
-        - $ref: '#/components/parameters/Email'
+        - $ref: '#/components/parameters/CustomerId'
       responses:
         200:
           $ref: '#/components/responses/Customer'
@@ -85,12 +85,12 @@ components:
 
   # Reusable operation parameters
   parameters:
-    Email:
-      name: email
+    CustomerId:
+      name: customerId
       in: path
       required: true
-      description: The email of the customer to retrieve
-      example: sven.svensson@gmail.com
+      description: The id of the customer to retrieve
+      example: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
       schema:
         type: string
 
