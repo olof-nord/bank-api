@@ -18,13 +18,11 @@ paths:
   /customers:
     get:
       summary: List all customers
-      operationId: 'getCustomers'
       responses:
         200:
           $ref: '#/components/responses/CustomerResponseList'
     post:
       summary: Create a new customer
-      operationId: 'createCustomer'
       requestBody:
         $ref: '#/components/requestBodies/CustomerRequestBody'
       responses:
@@ -36,12 +34,39 @@ paths:
   /customers/{customer-id}:
     get:
       summary: List a single customer
-      operationId: 'getCustomer'
       parameters:
         - $ref: '#/components/parameters/CustomerId'
       responses:
         200:
           $ref: '#/components/responses/Customer'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+
+  /customers/{customer-id}/addresses:
+    get:
+      summary: List all addresses of a customer
+      responses:
+        200:
+          $ref: '#/components/responses/CustomerResponseList'
+    post:
+      summary: Create a new customer address
+      requestBody:
+        $ref: '#/components/requestBodies/AddressRequestBody'
+      responses:
+        201:
+          $ref: '#/components/responses/Address'
+        422:
+          $ref: '#/components/responses/CreationFailed'
+  /customers/{customer-id}/addresses/{address-id}:
+    get:
+      summary: List a single customer address
+      parameters:
+        - $ref: '#/components/parameters/AddressId'
+      responses:
+        200:
+          $ref: '#/components/responses/Address'
         400:
           $ref: '#/components/responses/BadRequest'
         404:
@@ -61,7 +86,7 @@ components:
           readOnly: true
           format: uuid
           example: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
-          description: The generated id
+          description: The generated customer id
         firstName:
           type: string
           maxLength: 255
@@ -78,10 +103,61 @@ components:
           format: email
           example: sven.svensson@gmail.com
           description: The email address
+        addresses:
+          $ref: '#/components/schemas/Addresses'
     Customers:
       type: array
       items:
         $ref: '#/components/schemas/Customer'
+
+    Address:
+      type: object
+      required:
+        - streetAndNumber
+        - postcode
+        - city
+        - country
+      properties:
+        id:
+          type: string
+          readOnly: true
+          format: uuid
+          example: b7f538d2-4c03-4c45-9071-9a2bd158c597
+          description: The generated address id
+        alias:
+          type: string
+          maxLength: 255
+          example: Home
+          description: An alias for the address
+        streetAndNumber:
+          type: string
+          maxLength: 255
+          example: Panoramastr. 1A
+          description: The street and street number
+        additionalInformation:
+          type: string
+          maxLength: 255
+          example: Backyard
+          description: Additional information
+        postcode:
+          type: integer
+          example: 10178
+          description: The postal code
+        city:
+          type: string
+          maxLength: 255
+          example: Berlin
+          description: The city
+        country:
+          type: string
+          maxLength: 255
+          example: Germany
+          description: The country
+    Addresses:
+      type: array
+      description: All customer addresses
+      items:
+        $ref: '#/components/schemas/Address'
 
   # Reusable operation parameters
   parameters:
@@ -91,6 +167,14 @@ components:
       required: true
       description: The id of the customer to retrieve
       example: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
+      schema:
+        type: string
+    AddressId:
+      name: addressId
+      in: path
+      required: true
+      description: The id of the address to retrieve
+      example: b7f538d2-4c03-4c45-9071-9a2bd158c597
       schema:
         type: string
 
@@ -103,15 +187,22 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Customer'
+    AddressRequestBody:
+      description: Body to create a customer address
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Address'
 
   # Reusable responses
   responses:
     NotFound:
-      description: Customer not found
+      description: Resource not found
     BadRequest:
-      description: Customer lookup incorrect
+      description: Resource lookup failed
     CreationFailed:
-      description: Customer creation failed
+      description: Resource creation failed
     CustomerResponse:
       description: Customer response
       content:
@@ -124,3 +215,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Customers'
+    AddressResponse:
+      description: Address response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Address'
+    AddressResponseList:
+      description: A list of addresses
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Addresses'
