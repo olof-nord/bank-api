@@ -2,7 +2,11 @@ openapi: '3.0.0'
 info:
   version: '1.0.0'
   title: Fake Bank - Customer API
-  description: The great Customer API to Rule them All
+  description: >
+    This is the API for the customer domain of the fake-bank.
+
+    Using this API you can retrieve, edit and add customers,
+    as well as their address information.
   contact:
     name: Olof Nord
     url: http://olof.info
@@ -18,6 +22,7 @@ paths:
   /customers:
     get:
       summary: List all customers
+      description: Return all the customers available
       responses:
         200:
           $ref: '#/components/responses/CustomerResponseList'
@@ -71,6 +76,18 @@ paths:
           $ref: '#/components/responses/BadRequest'
         404:
           $ref: '#/components/responses/NotFound'
+    put:
+      summary: Replace a customer address
+      parameters:
+        - $ref: '#/components/parameters/AddressId'
+      requestBody:
+        $ref: '#/components/requestBodies/AddressRequestBody'
+      responses:
+        201:
+          $ref: '#/components/responses/Address'
+        422:
+          $ref: '#/components/responses/CreationFailed'
+
 components:
   # Reusable schemas (data models)
   schemas:
