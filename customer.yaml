@@ -204,6 +204,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Customer'
+          example:
+            firstName: Lisa
+            lastName: Svensson
+            email: lisa.svensson@gmail.com
+
     AddressRequestBody:
       description: Body to create a customer address
       required: true
@@ -211,6 +216,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Address'
+          example:
+            alias: Work
+            streetAndNumber: Riksgatan 1
+            postcode: 10012
+            city: Stockholm
+            country: Sweden
 
   # Reusable responses
   responses:
