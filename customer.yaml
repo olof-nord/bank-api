@@ -23,13 +23,15 @@ paths:
     get:
       summary: List all customers
       description: Return all the customers available
+      operationId: 'getCustomers'
       responses:
         200:
           $ref: '#/components/responses/CustomerResponseList'
     post:
       summary: Create a new customer
+      operationId: 'createCustomer'
       requestBody:
-        $ref: '#/components/requestBodies/CustomerRequestBody'
+        $ref: '#/components/requestBodies/CreateCustomerRequestBody'
       responses:
         201:
           $ref: '#/components/responses/Customer'
@@ -39,6 +41,7 @@ paths:
   /customers/{customer-id}:
     get:
       summary: List a single customer
+      operationId: 'getCustomer'
       parameters:
         - $ref: '#/components/parameters/CustomerId'
       responses:
@@ -48,15 +51,29 @@ paths:
           $ref: '#/components/responses/BadRequest'
         404:
           $ref: '#/components/responses/NotFound'
+    patch:
+      summary: Edit proprties of a single customer
+      operationId: 'editCustomer'
+      parameters:
+        - $ref: '#/components/parameters/CustomerId'
+      requestBody:
+        $ref: '#/components/requestBodies/EditCustomerRequestBody'
+      responses:
+        201:
+          $ref: '#/components/responses/Customer'
+        422:
+          $ref: '#/components/responses/CreationFailed'
 
   /customers/{customer-id}/addresses:
     get:
       summary: List all addresses of a customer
+      operationId: 'getAddresses'
       responses:
         200:
           $ref: '#/components/responses/CustomerResponseList'
     post:
       summary: Create a new customer address
+      operationId: 'createAddress'
       requestBody:
         $ref: '#/components/requestBodies/AddressRequestBody'
       responses:
@@ -64,9 +81,11 @@ paths:
           $ref: '#/components/responses/Address'
         422:
           $ref: '#/components/responses/CreationFailed'
+
   /customers/{customer-id}/addresses/{address-id}:
     get:
       summary: List a single customer address
+      operationId: 'getAddress'
       parameters:
         - $ref: '#/components/parameters/AddressId'
       responses:
@@ -78,6 +97,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       summary: Replace a customer address
+      operationId: 'editAddress'
       parameters:
         - $ref: '#/components/parameters/AddressId'
       requestBody:
@@ -97,6 +117,8 @@ components:
         - firstName
         - lastName
         - email
+        - dateOfBirth
+        - nationality
       properties:
         id:
           type: string
@@ -120,12 +142,52 @@ components:
           format: email
           example: sven.svensson@gmail.com
           description: The email address
+        dateOfBirth:
+          type: string
+          format: date
+          example: 1970-01-01
+          description: The date of birth (RFC 3339, section 5.6)
+        nationality:
+          type: string
+          maxLength: 255
+          default: German
+          example: Swedish
+          description: The nationality
         addresses:
           $ref: '#/components/schemas/Addresses'
     Customers:
       type: array
       items:
         $ref: '#/components/schemas/Customer'
+    EditCustomer:
+      type: object
+      properties:
+        firstName:
+          type: string
+          maxLength: 255
+          example: Sven
+          description: The full first name
+        lastName:
+          type: string
+          maxLength: 255
+          example: Svensson
+          description: The full last name
+        email:
+          type: string
+          maxLength: 100
+          format: email
+          example: sven.svensson@gmail.com
+          description: The email address
+        dateOfBirth:
+          type: string
+          format: date
+          example: 1970-01-01
+          description: The date of birth
+        nationality:
+          type: string
+          maxLength: 255
+          example: German
+          description: The nationality
 
     Address:
       type: object
@@ -197,7 +259,7 @@ components:
 
   # Reusable request bodies
   requestBodies:
-    CustomerRequestBody:
+    CreateCustomerRequestBody:
       description: Body to create a customer
       required: true
       content:
@@ -208,6 +270,13 @@ components:
             firstName: Lisa
             lastName: Svensson
             email: lisa.svensson@gmail.com
+    EditCustomerRequestBody:
+      description: Body to edit a customer
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EditCustomer'
 
     AddressRequestBody:
       description: Body to create a customer address
@@ -231,6 +300,7 @@ components:
       description: Resource lookup failed
     CreationFailed:
       description: Resource creation failed
+
     CustomerResponse:
       description: Customer response
       content:
@@ -243,6 +313,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Customers'
+
     AddressResponse:
       description: Address response
       content:
