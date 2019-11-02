@@ -34,11 +34,11 @@ paths:
         $ref: '#/components/requestBodies/CreateCustomerRequestBody'
       responses:
         201:
-          $ref: '#/components/responses/Customer'
+          $ref: '#/components/responses/CustomerResponse'
         422:
           $ref: '#/components/responses/CreationFailed'
 
-  /customers/{customer-id}:
+  /customers/{customerId}:
     get:
       summary: List a single customer
       operationId: 'getCustomer'
@@ -46,7 +46,7 @@ paths:
         - $ref: '#/components/parameters/CustomerId'
       responses:
         200:
-          $ref: '#/components/responses/Customer'
+          $ref: '#/components/responses/CustomerResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         404:
@@ -60,37 +60,42 @@ paths:
         $ref: '#/components/requestBodies/EditCustomerRequestBody'
       responses:
         201:
-          $ref: '#/components/responses/Customer'
+          $ref: '#/components/responses/CustomerResponse'
         422:
           $ref: '#/components/responses/CreationFailed'
 
-  /customers/{customer-id}/addresses:
+  /customers/{customerId}/addresses:
     get:
       summary: List all addresses of a customer
       operationId: 'getAddresses'
+      parameters:
+        - $ref: '#/components/parameters/CustomerId'
       responses:
         200:
           $ref: '#/components/responses/CustomerResponseList'
     post:
       summary: Create a new customer address
       operationId: 'createAddress'
+      parameters:
+        - $ref: '#/components/parameters/CustomerId'
       requestBody:
         $ref: '#/components/requestBodies/AddressRequestBody'
       responses:
         201:
-          $ref: '#/components/responses/Address'
+          $ref: '#/components/responses/AddressResponse'
         422:
           $ref: '#/components/responses/CreationFailed'
 
-  /customers/{customer-id}/addresses/{address-id}:
+  /customers/{customerId}/addresses/{addressId}:
     get:
       summary: List a single customer address
       operationId: 'getAddress'
       parameters:
+        - $ref: '#/components/parameters/CustomerId'
         - $ref: '#/components/parameters/AddressId'
       responses:
         200:
-          $ref: '#/components/responses/Address'
+          $ref: '#/components/responses/AddressResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         404:
@@ -99,12 +104,13 @@ paths:
       summary: Replace a customer address
       operationId: 'editAddress'
       parameters:
+        - $ref: '#/components/parameters/CustomerId'
         - $ref: '#/components/parameters/AddressId'
       requestBody:
         $ref: '#/components/requestBodies/AddressRequestBody'
       responses:
         201:
-          $ref: '#/components/responses/Address'
+          $ref: '#/components/responses/AddressResponse'
         422:
           $ref: '#/components/responses/CreationFailed'
 
@@ -146,7 +152,7 @@ components:
         dateOfBirth:
           type: string
           format: date
-          example: 1970-01-01
+          example: '1970-01-01'
           description: The date of birth
         nationality:
           type: string
@@ -244,7 +250,7 @@ components:
       name: customerId
       in: path
       required: true
-      description: The id of the customer to retrieve
+      description: The id of the customer to work with
       example: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
       schema:
         type: string
@@ -254,7 +260,7 @@ components:
       name: addressId
       in: path
       required: true
-      description: The id of the address to retrieve
+      description: The id of the address to work with
       example: b7f538d2-4c03-4c45-9071-9a2bd158c597
       schema:
         type: string
@@ -273,7 +279,7 @@ components:
             firstName: Lisa
             lastName: Svensson
             email: lisa.svensson@gmail.com
-            dateOfBirth: 1970-01-01
+            dateOfBirth: '1970-01-01'
             nationality: German
 
     EditCustomerRequestBody:
@@ -285,11 +291,11 @@ components:
             $ref: '#/components/schemas/EditCustomer'
           examples:
             editLastName:
-              summary: Example body to edit the last name
+              summary: Edit the last name
               value:
                 lastName: Nilsson
             editEmail:
-              summary: Example body to edit the email address
+              summary: Edit the email address
               value:
                 email: lisa.nilsson@gmail.com
 
@@ -327,7 +333,7 @@ components:
             firstName: Lisa
             lastName: Svensson
             email: lisa.svensson@gmail.com
-            dateOfBirth: 1970-01-01
+            dateOfBirth: '1970-01-01'
             nationality: German
 
     CustomerResponseList:
