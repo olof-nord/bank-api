@@ -113,6 +113,7 @@ components:
   schemas:
     Customer:
       type: object
+      description: This is the model which is used when creating or returning a customer
       required:
         - firstName
         - lastName
@@ -146,7 +147,7 @@ components:
           type: string
           format: date
           example: 1970-01-01
-          description: The date of birth (RFC 3339, section 5.6)
+          description: The date of birth
         nationality:
           type: string
           maxLength: 255
@@ -155,12 +156,15 @@ components:
           description: The nationality
         addresses:
           $ref: '#/components/schemas/Addresses'
+
     Customers:
       type: array
       items:
         $ref: '#/components/schemas/Customer'
+
     EditCustomer:
       type: object
+      description: This is the model which is used when editing a customer
       properties:
         firstName:
           type: string
@@ -178,11 +182,6 @@ components:
           format: email
           example: sven.svensson@gmail.com
           description: The email address
-        dateOfBirth:
-          type: string
-          format: date
-          example: 1970-01-01
-          description: The date of birth
         nationality:
           type: string
           maxLength: 255
@@ -191,6 +190,7 @@ components:
 
     Address:
       type: object
+      description: This is the model which is used when adding or replacing an address
       required:
         - streetAndNumber
         - postcode
@@ -232,9 +232,9 @@ components:
           maxLength: 255
           example: Germany
           description: The country
+
     Addresses:
       type: array
-      description: All customer addresses
       items:
         $ref: '#/components/schemas/Address'
 
@@ -248,6 +248,8 @@ components:
       example: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
       schema:
         type: string
+        format: uuid
+
     AddressId:
       name: addressId
       in: path
@@ -256,6 +258,7 @@ components:
       example: b7f538d2-4c03-4c45-9071-9a2bd158c597
       schema:
         type: string
+        format: uuid
 
   # Reusable request bodies
   requestBodies:
@@ -270,6 +273,9 @@ components:
             firstName: Lisa
             lastName: Svensson
             email: lisa.svensson@gmail.com
+            dateOfBirth: 1970-01-01
+            nationality: German
+
     EditCustomerRequestBody:
       description: Body to edit a customer
       required: true
@@ -277,6 +283,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/EditCustomer'
+          examples:
+            editLastName:
+              summary: Example body to edit the last name
+              value:
+                lastName: Nilsson
+            editEmail:
+              summary: Example body to edit the email address
+              value:
+                email: lisa.nilsson@gmail.com
 
     AddressRequestBody:
       description: Body to create a customer address
@@ -307,6 +322,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Customer'
+          example:
+            id: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
+            firstName: Lisa
+            lastName: Svensson
+            email: lisa.svensson@gmail.com
+            dateOfBirth: 1970-01-01
+            nationality: German
+
     CustomerResponseList:
       description: A list of customers
       content:
@@ -320,6 +343,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Address'
+          example:
+            id: b7f538d2-4c03-4c45-9071-9a2bd158c597
+            alias: Work
+            streetAndNumber: Riksgatan 1
+            postcode: 10012
+            city: Stockholm
+            country: Sweden
+
     AddressResponseList:
       description: A list of addresses
       content:
