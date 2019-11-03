@@ -15,9 +15,9 @@ info:
     url: https://www.gnu.org/licenses/gpl-3.0.en.html
 servers:
   - url: http://bank.olof.info/v1
-    description: Production API server
+    description: Production API server (uses live data)
   - url: http://dev.bank.olof.info/v1
-    description: Development API server
+    description: Development API server (uses test data)
 paths:
   /customers:
     get:
@@ -133,6 +133,12 @@ components:
           format: uuid
           example: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
           description: The generated customer id
+        created:
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2019-01-21T05:47:08.644'
+          description: The generated customer creation time
         firstName:
           type: string
           maxLength: 255
@@ -209,6 +215,12 @@ components:
           format: uuid
           example: b7f538d2-4c03-4c45-9071-9a2bd158c597
           description: The generated address id
+        created:
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2019-02-22T05:47:08.644'
+          description: The generated address creation time
         alias:
           type: string
           maxLength: 255
@@ -331,6 +343,7 @@ components:
             $ref: '#/components/schemas/Customer'
           example:
             id: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
+            created:  '2019-01-21T05:47:08.644'
             firstName: Lisa
             lastName: Svensson
             email: lisa.svensson@gmail.com
@@ -352,6 +365,7 @@ components:
             $ref: '#/components/schemas/Address'
           example:
             id: b7f538d2-4c03-4c45-9071-9a2bd158c597
+            created: '2019-02-22T05:47:08.644'
             alias: Work
             streetAndNumber: Riksgatan 1
             postcode: 10012
