@@ -25,7 +25,7 @@ paths:
       description: Return all the customers available
       operationId: 'getCustomers'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/CustomerResponseList'
     post:
       summary: Create a new customer
@@ -33,9 +33,9 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateCustomerRequestBody'
       responses:
-        201:
+        '201':
           $ref: '#/components/responses/CustomerResponse'
-        422:
+        '422':
           $ref: '#/components/responses/CreationFailed'
 
   /customers/{customerId}:
@@ -45,11 +45,11 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CustomerId'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/CustomerResponse'
-        400:
+        '400':
           $ref: '#/components/responses/BadRequest'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit proprties of a single customer
@@ -59,9 +59,9 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/EditCustomerRequestBody'
       responses:
-        201:
+        '201':
           $ref: '#/components/responses/CustomerResponse'
-        422:
+        '422':
           $ref: '#/components/responses/CreationFailed'
 
   /customers/{customerId}/addresses:
@@ -71,7 +71,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CustomerId'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/CustomerResponseList'
     post:
       summary: Create a new customer address
@@ -81,9 +81,9 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/AddressRequestBody'
       responses:
-        201:
+        '201':
           $ref: '#/components/responses/AddressResponse'
-        422:
+        '422':
           $ref: '#/components/responses/CreationFailed'
 
   /customers/{customerId}/addresses/{addressId}:
@@ -94,11 +94,11 @@ paths:
         - $ref: '#/components/parameters/CustomerId'
         - $ref: '#/components/parameters/AddressId'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/AddressResponse'
-        400:
+        '400':
           $ref: '#/components/responses/BadRequest'
-        404:
+        '404':
           $ref: '#/components/responses/NotFound'
     put:
       summary: Replace a customer address
@@ -109,9 +109,9 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/AddressRequestBody'
       responses:
-        201:
+        '201':
           $ref: '#/components/responses/AddressResponse'
-        422:
+        '422':
           $ref: '#/components/responses/CreationFailed'
 
 components:
@@ -236,6 +236,7 @@ components:
         country:
           type: string
           maxLength: 255
+          default: Germany
           example: Germany
           description: The country
 
