@@ -257,6 +257,22 @@ components:
       items:
         $ref: '#/components/schemas/Address'
 
+    Error:
+      type: object
+      description: The model used for errors
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          example: 404
+          description: The HTTP error code
+        message:
+          type: string
+          example: Resource not found
+          description: A message describing the error
+
   # Reusable operation parameters
   parameters:
     CustomerId:
@@ -330,6 +346,14 @@ components:
   responses:
     NotFound:
       description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 404
+            message: Resource not found
+
     BadRequest:
       description: Resource lookup failed
     CreationFailed:
