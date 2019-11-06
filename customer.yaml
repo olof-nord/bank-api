@@ -129,13 +129,11 @@ components:
       properties:
         id:
           type: string
-          readOnly: true
           format: uuid
           example: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
           description: The generated customer id
         created:
           type: string
-          readOnly: true
           format: date-time
           example: '2019-01-21T05:47:08.644'
           description: The generated customer creation time
