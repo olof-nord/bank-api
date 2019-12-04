@@ -1,0 +1,17 @@
+name: Open API specification linter
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Spectral Linting
+      uses: stoplightio/spectral-action@v0.5.5
+      with:
+          file_glob: ./*.yml
+
