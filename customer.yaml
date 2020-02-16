@@ -121,10 +121,10 @@ components:
       type: object
       description: This is the model which is used when creating or returning a customer
       required:
-        - firstName
-        - lastName
+        - first_name
+        - last_name
         - email
-        - dateOfBirth
+        - date_of_birth
         - nationality
       properties:
         id:
@@ -137,12 +137,12 @@ components:
           format: date-time
           example: '2019-01-21T05:47:08.644'
           description: The generated customer creation time
-        firstName:
+        first_name:
           type: string
           maxLength: 255
           example: Sven
           description: The full first name
-        lastName:
+        last_name:
           type: string
           maxLength: 255
           example: Svensson
@@ -153,7 +153,7 @@ components:
           format: email
           example: sven.svensson@gmail.com
           description: The email address
-        dateOfBirth:
+        date_of_birth:
           type: string
           format: date
           example: '1970-01-01'
@@ -176,12 +176,12 @@ components:
       type: object
       description: This is the model which is used when editing a customer
       properties:
-        firstName:
+        first_name:
           type: string
           maxLength: 255
           example: Sven
           description: The full first name
-        lastName:
+        last_name:
           type: string
           maxLength: 255
           example: Svensson
@@ -202,7 +202,7 @@ components:
       type: object
       description: This is the model which is used when adding or replacing an address
       required:
-        - streetAndNumber
+        - street_and_number
         - postcode
         - city
         - country
@@ -224,12 +224,12 @@ components:
           maxLength: 255
           example: Home
           description: An alias for the address
-        streetAndNumber:
+        street_and_number:
           type: string
           maxLength: 255
           example: Panoramastr. 1A
           description: The street and street number
-        additionalInformation:
+        additional_information:
           type: string
           maxLength: 255
           example: Backyard
@@ -303,10 +303,10 @@ components:
           schema:
             $ref: '#/components/schemas/Customer'
           example:
-            firstName: Lisa
-            lastName: Svensson
+            first_name: Lisa
+            last_name: Svensson
             email: lisa.svensson@gmail.com
-            dateOfBirth: '1970-01-01'
+            date_of_birth: '1970-01-01'
             nationality: German
 
     EditCustomerRequestBody:
@@ -320,7 +320,7 @@ components:
             editLastName:
               summary: Edit the last name
               value:
-                lastName: Nilsson
+                last_name: Nilsson
             editEmail:
               summary: Edit the email address
               value:
@@ -335,7 +335,7 @@ components:
             $ref: '#/components/schemas/Address'
           example:
             alias: Work
-            streetAndNumber: Riksgatan 1
+            street_and_number: Riksgatan 1
             postcode: 10012
             city: Stockholm
             country: Sweden
@@ -351,7 +351,6 @@ components:
           example:
             code: 404
             message: Resource not found
-
     BadRequest:
       description: Resource lookup failed
     CreationFailed:
@@ -366,10 +365,10 @@ components:
           example:
             id: ecd8c8a9-edf7-4ad6-a958-f592501c8c00
             created:  '2019-01-21T05:47:08.644'
-            firstName: Lisa
-            lastName: Svensson
+            first_name: Lisa
+            last_name: Svensson
             email: lisa.svensson@gmail.com
-            dateOfBirth: '1970-01-01'
+            date_of_birth: '1970-01-01'
             nationality: German
 
     CustomerResponseList:
@@ -389,7 +388,7 @@ components:
             id: b7f538d2-4c03-4c45-9071-9a2bd158c597
             created: '2019-02-22T05:47:08.644'
             alias: Work
-            streetAndNumber: Riksgatan 1
+            street_and_number: Riksgatan 1
             postcode: 10012
             city: Stockholm
             country: Sweden
