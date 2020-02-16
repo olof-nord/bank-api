@@ -13,5 +13,5 @@ jobs:
     - name: Spectral Linting
       uses: stoplightio/spectral-action@master
       with:
-        file_glob: ./*.yml
+        file_glob: ./*.yaml
         repo_token: ${{ secrets.GITHUB_TOKEN }}
