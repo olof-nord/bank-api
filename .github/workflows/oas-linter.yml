@@ -1,17 +1,17 @@
-name: Open API specification linter
+name: Fake Bank API Pipeline
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   lint:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-      
-    - name: Spectral Linting
-      uses: stoplightio/spectral-action@v0.5.5
-      with:
-          file_glob: ./*.yml
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
+    - name: Spectral Linting
+      uses: stoplightio/spectral-action@master
+      with:
+        file_glob: ./*.yml
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
