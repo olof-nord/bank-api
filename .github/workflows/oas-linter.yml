@@ -13,4 +13,4 @@ jobs:
     - name: Lint using OpenAPI tools
       uses: docker://openapitools/openapi-generator-cli
       with:
-        args: version
+        args: validate -i customer.yaml
