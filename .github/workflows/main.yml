@@ -10,7 +10,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Lint using OpenAPI tools
+    - name: Lint APIs using OpenAPI CLI
       uses: docker://openapitools/openapi-generator-cli
       with:
-        args: validate -i customer.yaml
+        args: validate -i *.yaml
