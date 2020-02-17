@@ -10,7 +10,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Hello World example by using a Docker Hub image
-      uses: docker://alpine
+    - name: Lint using OpenAPI tools
+      uses: docker://openapitools/openapi-generator-cli
       with:
-        args: echo "Hello World"
+        args: version
