@@ -10,8 +10,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Spectral Linting
-      uses: stoplightio/spectral-action@master
+    - name: Hello World example by using a Docker Hub image
+      uses: docker://alpine
       with:
-        file_glob: ./*.yaml
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        args: echo "Hello World"
