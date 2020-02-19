@@ -14,9 +14,9 @@ info:
     name: GNU General Public License Version 3
     url: https://www.gnu.org/licenses/gpl-3.0.en.html
 servers:
-  - url: https://bank.olof.info/v1
+  - url: https://bank.olof.info
     description: Production API server (uses live data)
-  - url: https://dev.bank.olof.info/v1
+  - url: https://dev.bank.olof.info
     description: Development API server (uses test data)
 paths:
   /customers:
